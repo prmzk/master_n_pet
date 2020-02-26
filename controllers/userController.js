@@ -1,5 +1,9 @@
 const { User } = require('../models/index.js');
 
-cons
+class Controller {
+    static loginShow() {
+        
+    }
+}
 
 module.exports = Controller;

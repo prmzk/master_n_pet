@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt')
 
 let testUsers = [{
   first_name: "Naufal",
@@ -15,6 +16,10 @@ let testUsers = [{
   createdAt: new Date,
   updatedAt: new Date
 }]
+
+testUsers.forEach(el => {
+  el.password = bcrypt.hashSync(el.password, 10);
+})
 
 module.exports = {
   up: (queryInterface, Sequelize) => {

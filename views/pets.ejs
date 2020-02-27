@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/pets/add">Add</a>
+    <% if(success){ %>
+        <p style="color: green;"><%= success %></p>
+    <% } %>
+    <table>
+        <tr>
+          <th>Name</th>
+          <th>Species</th>
+          <th>Breed</th>
+          <th>Age</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th colspan="2">Options</th>
+        </tr>
+        <% data.forEach( el => { %>
+            <tr>
+            <% for(let key in el.dataValues){ 
+                if(key !== 'id' && key!== 'User' && key!== 'owner_id') { %>
+                <td><%= el[key] %></td>
+                <% } else if(key == 'User') { 
+                    if(el[key] == null) {%>
+                <td>Animal Shelter</td>
+                <% } else { %>
+                <td><%= el[key].name %></td>
+            <% }}
+            } %>
+            <td><a href=<%= "/pets/edit/" + el.id %>>Edit</a></td>
+            <td><a href=<%= "/pets/delete/" + el.id %>>Delete</a></td>
+            </tr>
+        <% }) %>
+      </table>
+</body>
+</html>

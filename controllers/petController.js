@@ -1,10 +1,13 @@
 "use strict"
 
-const { Pet } = require('../models/index')
+const { Pet, User } = require('../models/index')
 
 class Controller {
     static show(req, res){
         Pet.findAll({
+            include:{
+                model: User
+            },
             attributes: {
                 exclude: ['updatedAt', 'createdAt']
             },
@@ -13,12 +16,16 @@ class Controller {
         .then(result => {
             let success = req.app.locals.success
             delete req.app.locals.success
-            res.render('petList.ejs', {success:success, data:result})
+            res.render('pets.ejs', {success:success, data:result})
         })
     }
 
     static showAdd(req, res){
-        res.render('addPet.ejs', {error:null})
+        User.findAll({
+            order:['id']
+        })
+        .then(result => res.render('addPet.ejs', {error: req.session.error, owner:result}))
+        .catch(err => res.render(err))
     }
 
     static add(req, res){
@@ -27,7 +34,11 @@ class Controller {
             req.app.locals.success = 'Pet added.'
             res.redirect('/pets')
         })
-        .catch(err => res.send (err))
+        .catch(err => {
+            if(req.session.error) delete req.session.error
+            req.session.error = err
+            Controller.showAdd(req, res)
+        })
     }
 
     static showEdit(req, res){
@@ -39,7 +50,13 @@ class Controller {
                 excludes: ['updatedAt', 'createdAt']
             }
         })
-        .then(result => res.render('editPet.ejs', {error: null}))
+        .then(result => {
+            User.findAll({
+                order:['id']
+            })
+            .then(resultUser => res.render('editPet.ejs', {error: req.session.error, data:result[0].dataValues, owner:resultUser}))
+            
+        })
         .catch(err => res.send(err))
     }
 
@@ -47,13 +64,18 @@ class Controller {
         Pet.update(req.body, {
             where: {
                 id: req.params.id
-            }
+            },
+            individualHooks: true
         })
         .then(result => {
             req.app.locals.success = 'Pet edited.'
             res.redirect('/pets')
         })
-        .catch(err => res.send (err))
+        .catch(err => {
+            if(req.session.error) delete req.session.error
+            req.session.error = err
+            Controller.showEdit(req, res)
+        })
     }
 
     static delete(req, res){
@@ -69,3 +91,5 @@ class Controller {
         .catch(err => res.send (err))
     }
 }
+
+module.exports = Controller;

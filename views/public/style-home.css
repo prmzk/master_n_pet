@@ -32,6 +32,9 @@ td{
 #options{
     text-align: center;
 }
+.card-text {
+    font-size: 24;
+}
 
 .navbar-default {
     background-color: #364fc7;

@@ -8,9 +8,15 @@
 <body>
     <%- include('./includes/navbar.ejs') %> <br>
     <h1>Master and Pet</h1> <br>
-    <h3><a href = '/admin/login'>Login Admin</a></h3> <br>
+    <% if(!user) { %>
+    <!-- <h3><a href = '/admin/login'>Login Admin</a></h3> <br> -->
+    <h3><a href = '/user/signup'>Register User</a></h3> <br>
     <h3><a href = '/user/login'>Login User</a></h3> <br>
-    
+    <% } %>
+    <br>
+    <% if(user) { %>
+    <h4>Welcome back, Master <%= user.username %> </h4>
+    <% } %>
     <%- include('./includes/bsjs.ejs') %>
 </body>
 </html>

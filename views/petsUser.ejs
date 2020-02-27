@@ -11,7 +11,7 @@
     <%- include('./includes/navbar.ejs') %> 
     <br>
         <% data.forEach( el => { %>
-            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+            <div id ="pet-card" class="card text-white bg-danger mb-3" style="max-width: 18rem;">
                 <div class="card-header"><%= el.species %></div>
                 <div class="card-body">
                   <h5 class="card-title"><%= el.name %></h5>

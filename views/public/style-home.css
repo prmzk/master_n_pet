@@ -52,3 +52,7 @@ td{
 .home-text {
     color: #153a33
 }
+
+#pet-card {
+    text-align: center;
+}

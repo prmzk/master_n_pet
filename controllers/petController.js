@@ -1,6 +1,6 @@
 "use strict"
 
-const { Pet, User } = require('../models/index')
+const { Pet, User, UserPet } = require('../models/index')
 
 class Controller {
     static show(req, res){
@@ -107,12 +107,23 @@ class Controller {
                 as: 'Interested By'
             }],
             attributes: {
-                exclude: ['id', 'createdAt', 'updatedAt', 'owner_id']
+                exclude: ['createdAt', 'updatedAt', 'owner_id']
             }
         })
         .then(result => {
-            res.render('petProfile.ejs', {data: result[0]})
+            res.render('petProfile.ejs', {data: result[0], user:req.session.user})
         })
+    }
+
+    static addInterested(req, res){
+        console.log(req.session.user.id)
+        console.log(req.params.petId)
+        UserPet.create({
+            user_id: req.session.user.id,
+            pet_id: req.params.petId
+        })
+        .then(result => res.redirect('/pets'))
+        .catch(err => res.send(err))
     }
 }
 

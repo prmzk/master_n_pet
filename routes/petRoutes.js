@@ -14,5 +14,6 @@ router.post('/edit/:id', Controller.edit)
 router.get('/delete/:id', Controller.delete)
 
 router.get('/profile/:id', Controller.showProfile)
+router.get('/interested/:petId', Controller.addInterested)
 
 module.exports = router;

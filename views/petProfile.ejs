@@ -10,49 +10,31 @@
 <body>
     <%- include('./includes/navbar.ejs') %> 
     <a href="/pets">Back to pets</a>
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><%= data.dataValues.name %></td>
-        <tr>
-        <tr>
-            <td>Species:</td>
-            <td><%= data.dataValues.species %></td>
-        <tr>
-        <tr>
-            <td>Breed:</td>
-            <td><%= data.dataValues.breed %></td>
-        <tr>
-        <tr>
-            <td>Age:</td>
-            <td><%= data.dataValues.age %></td>
-        <tr>
-        <tr>
-            <td>Status:</td>
-            <td><%= data.dataValues.status %></td>
-        <tr>
-        <tr>
-            <td>Owner:</td>
-            <% if(data.dataValues.Owner) { %>
-            <td><%= data.dataValues.Owner.name %></td>
-            <% } else { %>
-            <td>Animal Shelter</td>
-            <% } %>
-        <tr>
-        <tr>
-            <td>Interested By:</td>
+    <div class="jumbotron">
+        <h1 class="display-4"><%= data.dataValues.name %>, <%= data.dataValues.age %></h1>
+        <p class="lead"><%= data.dataValues.species %></p>
+        <hr class="my-4">
+        <p class="subtitle-profile">Breed:</p>
+        <p><%= data.dataValues.breed %></p>
+        <p class="subtitle-profile">*Owned by</p>
+        <p><% if(data.dataValues.Owner) { %> <%= data.dataValues.Owner.name %> <% } else { %> Animal Shelter <% } %></p>
+        <p class="subtitle-profile">Is available <%= data.dataValues.status %></p>
+        <p class="subtitle-profile">Liked by 
             <% if(data.dataValues['Interested By']) { 
-                data.dataValues['Interested By'].forEach(el => { %>
-            <td><%= el.name %></td>
-            <% }) } else { %>
-            <td>-</td>
-            <% } %>
-        <tr>
-      </table>
-      <% if(user){
-          if(!(user.id == data.dataValues.owner_id)) { %>
-        <a href= <%= '/pets/interested/' + data.dataValues.id %>>I'm interested</a>
-      <% } }%>
+            data.dataValues['Interested By'].forEach(el => { %>
+        <%= el.name %>
+        <% }) } else { %>
+        -
+        <% } %></p>
+        <% if(user){
+            if(!(user.id == data.dataValues.owner_id)) { %>
+          <a href= <%= '/pets/interested/' + data.dataValues.id %>> * I'm interested</a>
+        <% } }%>
+
+      </div>
+
+      <br>
+      <br>
       <%- include('./includes/bsjs.ejs') %>
       </body>
 </html>

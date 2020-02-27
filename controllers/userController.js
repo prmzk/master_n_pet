@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 
 class Controller {
     static loginShow(req, res) {
-        res.render('loginUser')
+        res.render('loginUser', {errors: null})
     }
     static signUpShow(req, res) {
         res.render('userSignUp')
@@ -44,7 +44,7 @@ class Controller {
                     throw new Error('Username salah!')
                 }
             })
-            .catch(errors => res.send(errors))
+            .catch(errors => res.render('loginUser', {errors: errors}))
             
     }
     static logOut(req, res) {

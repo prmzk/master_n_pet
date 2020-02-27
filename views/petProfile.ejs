@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/pets">Back to pets</a>
+    <table>
+        <% for(let key in data.dataValues){ 
+            keyPrt = key.split('')
+            keyPrt[0] = keyPrt[0].toUpperCase()
+            keyPrt = keyPrt.join('') %>
+            <tr>
+                <td><%= keyPrt %></td>
+                <% if(key !== 'Owner') { %>
+                <td><%= data.dataValues[key] %></td>
+                <% } else { 
+                    if(!data.dataValues[key]) { %>
+                <td>Animal Shelter</td>
+                <% } else { %>
+                <td><%= data.dataValues[key].name %></td>
+                <% } %>
+             <tr>
+        <% }} %>
+      </table>
+</body>
+</html>

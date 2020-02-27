@@ -17,7 +17,6 @@ class Controller {
         .then(result => {
             let success = req.app.locals.success
             delete req.app.locals.success
-            console.log(result)
             res.render('pets.ejs', {success:success, data:result})
         })
     }
@@ -146,6 +145,20 @@ class Controller {
             pet_id: req.params.petId
         })
         .then(result => res.redirect('/pets'))
+        .catch(err => res.send(err))
+    }
+
+    static showInterested(req, res){
+        Pet.findAll({
+            include:{
+                model: User,
+                as: 'Interested By'
+            },
+            where:{
+                id: req.params.petId
+            }
+        })
+        .then(result => res.render('interestedBy.ejs', {data:result[0]}))
         .catch(err => res.send(err))
     }
 }

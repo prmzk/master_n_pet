@@ -22,4 +22,6 @@ router.get('/delete/:id', Controller.delete)
 router.get('/profile/:id', Controller.showProfile)
 router.get('/interested/:petId', Controller.addInterested)
 
+router.get('/:petId/interestedby', Controller.showInterested)
+
 module.exports = router;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+          <th>Name</th>
+          <th>Species</th>
+          <th>Breed</th>
+          <th>Age</th>
+          <th>Status</th>
+          <th>See Profile</th>
+          <th>Interested by?</th>
+        </tr>
+        <% data.forEach( el => { %>
+            <tr>
+            <% for(let key in el.dataValues){ 
+                if(key !== 'id' && key!== 'Owner' && key!== 'owner_id') { %>
+                <td><%= el[key] %></td>
+                <% } else if(key == 'Owner') { 
+                    if(el[key] == null) {%>
+                <td>Animal Shelter</td>
+                <% } else { %>
+                <td><%= el[key].name %></td>
+            <% }}
+            } %>
+            <td><a href=<%= "/pets/profile/" + el.id %>>>></a></td>
+            <td><a href=<%= `/pets/${el.id}/interestedby` %>>>></a></td>
+            </tr>
+        <% }) %>
+      </table>
+</body>
+</html>

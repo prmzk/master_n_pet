@@ -9,4 +9,6 @@ router.get('/login', Controller.loginShow)
 router.post('/login', Controller.logIn)
 router.get('/logout', Controller.logOut)
 
+router.get('/mypet', Controller.showPet)
+
 module.exports = router;

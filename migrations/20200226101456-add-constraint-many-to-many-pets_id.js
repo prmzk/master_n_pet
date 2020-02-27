@@ -8,7 +8,9 @@ module.exports = {
       references: {
         table: 'Pets',
         field: 'id'
-      }
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
     })
   },
 

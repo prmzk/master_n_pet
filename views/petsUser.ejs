@@ -9,22 +9,43 @@
 </head>
 <body>
     <%- include('./includes/navbar.ejs') %> 
+    <h1 class="display-2" style="color: rgb(14, 133, 68);">Pets nearby</h1>
+    <p style="color: rgb(14, 133, 68); font-size: 20px;">Find pets to adopt right now!</p>
+    <a href="/pets/breeding"><button type="button" class="btn btn-info" <%= (filter == 1) ? 'disabled':'' %>>For Breeding</button></a>
+    <a href="/pets/adopting"><button type="button" class="btn btn-info" <%= (filter == 2) ? 'disabled':'' %>>For Adopting</button></a>
+    <% if(filter) { %>
+    <a href="/pets"><button type="button" class="btn btn-info" >Show All</button></a>
+    <% } %>
     <br>
-        <% data.forEach( el => { %>
-            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                <div class="card-header"><%= el.species %></div>
+    <div style="display: flex; flex-direction: column;">
+        <% for(let i = 0; i < data.length/4; i++){ %>
+            <div style="display: flex; justify-content: center;">
+            <%  for(let j = i*4; j < (i+1)*4; j++) { 
+                if(j >= data.length) break %>
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem; margin: 15px;">
+                <div class="card-header">
+                    <img style="width: 250px; border-radius: 150px; margin-bottom: 10px;" src= <%= helper(data[j].species) %> alt="">
+                    <%= data[j].species %>
+                </div>
                 <div class="card-body">
-                  <h5 class="card-title"><%= el.name %></h5>
-                  <p class="card-text">Age: <%= el.age %></p>
-                  <p class="card-text">Avalailable <%= el.status %></p><br>
-                  <p class="card-text">* Owned by <% if(!el.Owner) { %>
+                  <h5 class="card-title" style="font-size: 30px; font-weight: bold;"><%= data[j].name %></h5>
+                  <p class="card-text">Age: <%= data[j].age %></p>
+                  <% if(data[j].status !== 'unavailable') { %>
+                  <p class="card-text">Avalailable <%= data[j].status %></p>
+                  <% } else { %>
+                  <p class="card-text">Unavailable</p>
+                  <% } %>
+                  <p class="card-text">* Owned by <% if(!data[j].Owner) { %>
                       <%= 'Animal Shelter' %> <%} else { %>
-                      <%= el.Owner.name %>
+                      <%= data[j].Owner.name %>
                     <% } %></p>
-                    <p class="card-text"><a href= <%= `pets/profile/${el.id}` %>>See Profile</a></p>
+                    <p class="card-text"><a href= <%= `/pets/profile/${data[j].id}` %>>See Profile</a></p>
                 </div>
               </div>
-        <% }) %>
+        <% } %>
+    </div>
+    <% } %>
+    </div>
         <%- include('./includes/bsjs.ejs') %>
 </body>
 </html>

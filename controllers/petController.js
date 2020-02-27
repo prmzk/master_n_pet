@@ -1,6 +1,7 @@
 "use strict"
 
 const { Pet, User, UserPet } = require('../models/index')
+const helper = require('../helper/imghelper')
 
 class Controller {
     static showAdmin(req, res){
@@ -35,7 +36,7 @@ class Controller {
         .then(result => {
             let success = req.app.locals.success
             delete req.app.locals.success
-            res.render('petsUser.ejs', {data:result, user:req.session.user})
+            res.render('petsUser.ejs', {data:result, user:req.session.user, helper:helper, filter:null})
         })
     }
 
@@ -86,6 +87,40 @@ class Controller {
         .catch(err => res.send(err))
     }
 
+    static showEditUser(req, res){
+        Pet.findAll({
+            where:{
+                id: req.params.id
+            },
+            attributes:{
+                excludes: ['updatedAt', 'createdAt']
+            }
+        })
+        .then(result => {
+            User.findAll({
+                order:['id']
+            })
+            .then(resultUser => res.render('editPetUser.ejs', {error: req.session.error, data:result[0].dataValues, owner:resultUser}))
+            
+        })
+        .catch(err => res.send(err))
+    }
+
+    static editUser(req, res){
+        Pet.update(req.body, {
+            where: {
+                id: req.params.id
+            },
+            individualHooks: true,
+        })
+        .then(result => {
+            res.redirect('/user/mypet')
+        })
+        .catch(err => {
+            res.send(err)
+        })
+    }
+
     static edit(req, res){
         Pet.update(req.body, {
             where: {
@@ -114,7 +149,7 @@ class Controller {
             req.app.locals.success = 'Pet deleted.'
             res.redirect('/pets')
         })
-        .catch(err => res.send (err))
+        .catch(err => console.log(err))
     }
 
     static showProfile(req, res){
@@ -135,7 +170,7 @@ class Controller {
             }
         })
         .then(result => {
-            res.render('petProfile.ejs', {data: result[0], user:req.session.user})
+            res.render('petProfile.ejs', {data: result[0], user:req.session.user, helper:helper})
         })
     }
 
@@ -174,7 +209,56 @@ class Controller {
                 }
             }
         )
-        .then(result => res.redirect('/pets'))
+        .then(result => {
+            UserPet.destroy({
+                where:{
+                    pet_id: req.params.petId
+                }
+            })
+            .then(result => res.redirect('/pets'))
+        })
+    }
+
+    static showBreeding(req, res){
+        Pet.findAll({
+            include:{
+                model: User,
+                as: 'Owner'
+            },
+            attributes: {
+                exclude: ['updatedAt', 'createdAt']
+            },
+            order: ['id'],
+            where: {
+                status: 'for breeding'
+            }
+        })
+        .then(result => {
+            let success = req.app.locals.success
+            delete req.app.locals.success
+            res.render('petsUser.ejs', {data:result, user:req.session.user, helper:helper, filter:1})
+        })
+    }
+    
+    static showAdopting(req, res){
+        Pet.findAll({
+            include:{
+                model: User,
+                as: 'Owner'
+            },
+            attributes: {
+                exclude: ['updatedAt', 'createdAt']
+            },
+            order: ['id'],
+            where: {
+                status: 'for adopting'
+            }
+        })
+        .then(result => {
+            let success = req.app.locals.success
+            delete req.app.locals.success
+            res.render('petsUser.ejs', {data:result, user:req.session.user, helper:helper, filter:2})
+        })
     }
 }
 

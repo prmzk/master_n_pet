@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 
 class Controller {
     static loginShow(req, res){
-        res.render('loginAdmin.ejs')
+        res.render('loginAdmin.ejs', {error:null})
     }
 
     static login(req, res){
@@ -28,7 +28,12 @@ class Controller {
                 throw new Error('wrong pass')
             }
         })
-        .catch(err => res.send(err.message))
+        .catch(err => res.render('loginAdmin.ejs', {error:err}))
+    }
+
+    static logOut(req, res){
+        req.session.destroy()
+        res.redirect('/')
     }
 }
 

@@ -10,7 +10,7 @@
 </head>
 <body>
     <%- include('./includes/navbar.ejs') %> 
-    <form action=<%= "/pets/edit/" + data.id %> method="POST">
+    <form action=<%= "/pets/edit/user/" + data.id %> method="POST">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" value= <%= data.name %>><br>
         <label for="species">Species:</label><br>
@@ -32,14 +32,7 @@
             <option value="for adopting" <%= (data.status == 'for adopting') ? 'selected':'' %>>for adopting</option>
             <option value="unavailable" <%= (data.status == 'unavailable') ? 'selected':'' %>>unavailable</option>
         </select><br>
-        <label for="owner_id">Owner:</label><br>
-        <select id="owner_id", name="owner_id">
-            <option value="">Animal Shelter</option>
-            <% owner.forEach(el => { %>
-            <option value= <%= el.dataValues.id %> <%= (data.owner_id == el.dataValues.id) ? 'selected':'' %>><%= el.name %></option>
-            <% }) %>
-        
-        </select><br><br>
+        <br><br>
         <input type="submit" value="Submit">
       </form> 
       <% if(error) { 

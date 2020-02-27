@@ -9,6 +9,13 @@ router.get('/login', Controller.loginShow)
 router.post('/login', Controller.logIn)
 router.get('/logout', Controller.logOut)
 
-router.get('/mypet', Controller.showPet)
+router.get('/mypet', (req, res, next) => {
+    if(!req.session.user){
+        res.redirect('/user/login')
+    }else{
+        next()
+    }
+}
+,Controller.showPet)
 
 module.exports = router;

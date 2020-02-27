@@ -27,11 +27,11 @@ class Controller {
                     }
                     bcrypt.compare(userToLog.password, users[0].password)
                     .then(passResult => {
-                        console.log(passResult)
                         toReturn.passCorrect = passResult
                         return toReturn
                     }).then(toReturn => {
                         if(toReturn.passCorrect) {
+                            if(req.session.admin) req.session.admin = false
                             req.session.user = toReturn.user;
                             res.redirect('/')
                         }
@@ -59,7 +59,8 @@ class Controller {
             },
             attributes: {
                 exclude: ['updatedAt', 'createdAt']
-            }
+            },
+            order: ['id']
         })
         .then(result => res.render('myPet.ejs', {data:result}))
         .catch(errors => res.send(errors))

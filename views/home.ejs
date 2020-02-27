@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Master and Pet</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/style-home.css">
 </head>
+
 <body>
-    <%- include('./includes/navbar.ejs') %> 
-    <br>
-    <h1 class ="home-text">Master and Pet</h1> <br>
-    <% if(!user && !admin) { %>
-    <h3><a href = '/user/signup'>Register User</a></h3> <br>
-    <h3><a href = '/user/login'>Login User</a></h3> <br>
-    <% } %>
-    <br>
-    <% if(user) { %>
-    <h4 class ="home-text">Welcome back, Master <%= user.first_name %> </h4>
-    <br>
-    <h5><a href = "/user/logout">Logout</a></h5>
-    <% } else if(admin) { %>
-        <h2 class ="home-text">Welcome admin!</h2>
-    <% } %>
-    <%- include('./includes/bsjs.ejs') %>
+    <%- include('./includes/navbar.ejs') %>
+    <div style="display: flex; flex-direction: column;">
+        <h1 class="display-1" style="color: rgb(14, 133, 68);">Master and Pet</h1>
+        <div style="display: flex; justify-content: center;">
+            <div >
+                <img src="./bghome.jpg" alt="">
+            </div>
+            <div style="display: flex; flex-direction: column; width: 30vw; padding: 80px 80px;">
+            <h1 class="" style="color: rgb(14, 133, 68);">Connecting you and beautiful pets around the world</h1><br><br>
+                <% if(!user && !admin) { %>
+                <a href="/pets"><button type="button" class="btn btn-primary">See pets now!</button></a><br>
+                <h3><a href='/user/login'>Login User</a></h3> <br>
+                <h5><a href='/user/signup'>Register now!</a></h5> <br>
+                <% } %>
+                <br>
+                <% if(user) { %>
+                <h4 class="home-text">Welcome back, Master <%= user.first_name %> </h4><br>
+                <a href="/pets"><button type="button" class="btn btn-info">See pets</button></a>
+                <br>
+                <h5><a href="/user/logout"><button type="button" class="btn btn-danger">Logout</button></a></h5>
+                <% } else if(admin) { %>
+                <h2 class="home-text">Welcome admin!</h2>
+                <h5><a href="/admin/logout"><button type="button" class="btn btn-danger">Logout</button></a></h5>
+                <% } %>
+                <% if(!user && !admin) { %>
+                <a href="/admin/login">Admin log in</a>
+                <% } %>
+                <%- include('./includes/bsjs.ejs') %>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

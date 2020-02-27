@@ -14,8 +14,37 @@ class Controller {
             .catch(err => res.send(err))
     }
     static logIn(req, res) {
-        
+        let user = req.body
+        User.findAll({
+            where: {username: user.username}
+        })
+            .then(users => {
+                if(users[0]) {
+                    let toReturn = {
+                        user: users[0],
+                        passCorrect: null
+                    }
+                    bcrypt.compare(user.password, users[0].password)
+                    .then(passResult => {
+                        toReturn.passCorrect = passResult
+                        return toReturn
+                    })
+                }
+                else {
+                    throw new Error('Username salah!')
+                }
+            })
+            .then(toReturn => {
+                if(toReturn.passCorrect) {
+                    req.session.user = toReturn.user;
+                    res.redirect('/')
+                }
+                else{
+                    throw new Error('Password salah!')
+                }
+            })
     }
+    static 
 }
 
 module.exports = Controller;

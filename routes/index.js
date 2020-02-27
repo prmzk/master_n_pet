@@ -7,11 +7,6 @@ const petRouter = require('./petRoutes')
 
 router.get('/', (req, res) => {
     let user = req.session.user
-    if(user){
-        console.log(user)
-        console.log(user.name)
-    }
-    // res.send(user);
     res.render('home.ejs', {user: user})
 })
 router.use('/admin', adminRouter)

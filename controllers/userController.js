@@ -1,4 +1,4 @@
-const { User } = require('../models/index.js');
+const { User, Pet } = require('../models/index.js');
 const bcrypt = require('bcrypt')
 
 class Controller {
@@ -50,6 +50,19 @@ class Controller {
     static logOut(req, res) {
         req.session.destroy()
         res.redirect('/')
+    }
+
+    static showPet(req, res){
+        Pet.findAll({
+            where: {
+                owner_id: req.session.user.id
+            },
+            attributes: {
+                exclude: ['updatedAt', 'createdAt']
+            }
+        })
+        .then(result => res.render('myPet.ejs', {data:result}))
+        .catch(errors => res.send(errors))
     }
 }
 

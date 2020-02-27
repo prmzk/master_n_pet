@@ -6,7 +6,8 @@ class Controller {
     static show(req, res){
         Pet.findAll({
             include:{
-                model: User
+                model: User,
+                as: 'Owner'
             },
             attributes: {
                 exclude: ['updatedAt', 'createdAt']
@@ -16,6 +17,7 @@ class Controller {
         .then(result => {
             let success = req.app.locals.success
             delete req.app.locals.success
+            console.log(result)
             res.render('pets.ejs', {success:success, data:result})
         })
     }

@@ -46,7 +46,15 @@ module.exports = (sequelize, DataTypes) => {
   });
   Pet.associate = function(models) {
     // associations can be defined here
-    Pet.belongsTo(models.User, {foreignKey: 'owner_id'})
+    Pet.belongsTo(models.User, {
+      foreignKey: 'owner_id',
+      as: 'Owner'
+    })
+    Pet.belongsToMany(models.User, {
+      through: models.UserPet,
+      foreignKey: 'pet_id',
+      as: 'Interested By'
+    })
   };
   return Pet;
 };

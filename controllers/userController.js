@@ -9,8 +9,6 @@ class Controller {
     }
     static signUp(req, res) {
         let newUser = req.body;
-        // newUser.createdAt = new Date;
-        // newUser.updatedAt = new Date;
         User.create(newUser)
             .then(newUsers => res.redirect('/'))
             .catch(err => res.send(err))

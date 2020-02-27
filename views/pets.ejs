@@ -23,9 +23,9 @@
         <% data.forEach( el => { %>
             <tr>
             <% for(let key in el.dataValues){ 
-                if(key !== 'id' && key!== 'User' && key!== 'owner_id') { %>
+                if(key !== 'id' && key!== 'Owner' && key!== 'owner_id') { %>
                 <td><%= el[key] %></td>
-                <% } else if(key == 'User') { 
+                <% } else if(key == 'Owner') { 
                     if(el[key] == null) {%>
                 <td>Animal Shelter</td>
                 <% } else { %>

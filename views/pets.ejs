@@ -19,6 +19,7 @@
           <th>Status</th>
           <th>Owner</th>
           <th colspan="2">Options</th>
+          <th>See Profile</th>
         </tr>
         <% data.forEach( el => { %>
             <tr>
@@ -34,6 +35,7 @@
             } %>
             <td><a href=<%= "/pets/edit/" + el.id %>>Edit</a></td>
             <td><a href=<%= "/pets/delete/" + el.id %>>Delete</a></td>
+            <td><a href=<%= "/pets/profile/" + el.id %>>>></a></td>
             </tr>
         <% }) %>
       </table>

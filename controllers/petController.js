@@ -92,6 +92,28 @@ class Controller {
         })
         .catch(err => res.send (err))
     }
+
+    static showProfile(req, res){
+        Pet.findAll({
+            where: {
+                id: req.params.id
+            },
+            include : [{
+                model: User,
+                as: 'Owner'
+            },
+            {
+                model: User,
+                as: 'Interested By'
+            }],
+            attributes: {
+                exclude: ['id', 'createdAt', 'updatedAt', 'owner_id']
+            }
+        })
+        .then(result => {
+            res.render('petProfile.ejs', {data: result[0]})
+        })
+    }
 }
 
 module.exports = Controller;

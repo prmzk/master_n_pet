@@ -13,5 +13,6 @@ router.post('/edit/:id', Controller.edit)
 
 router.get('/delete/:id', Controller.delete)
 
+router.get('/profile/:id', Controller.showProfile)
 
 module.exports = router;

@@ -14,7 +14,7 @@
         <% data.dataValues['Interested By'].forEach( el => { %>
         <tr>
             <th><%= el.name %></th>
-            <th><a href="">Choose this user!</a></th>
+            <th><a href= <%= `/pets/${petId}/changeOwner/${el.dataValues.id}` %>>Choose this user!</a></th>
         </tr>
         <% }) %>
       </table>

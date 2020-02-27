@@ -15,7 +15,9 @@
     <% } %>
     <br>
     <% if(user) { %>
-    <h4>Welcome back, Master <%= user.username %> </h4>
+    <h4>Welcome back, Master <%= user.first_name %> </h4>
+    <br>
+    <h5><a href = "/user/logout">Logout</a></h5>
     <% } %>
     <%- include('./includes/bsjs.ejs') %>
 </body>

@@ -18,6 +18,7 @@ class Controller {
         .then(result => {
             let success = req.app.locals.success
             delete req.app.locals.success
+            if(req.session.error) delete req.session.error
             res.render('pets.ejs', {success:success, data:result})
         })
     }
@@ -36,6 +37,7 @@ class Controller {
         .then(result => {
             let success = req.app.locals.success
             delete req.app.locals.success
+            if(req.session.error) delete req.session.error
             res.render('petsUser.ejs', {data:result, user:req.session.user, helper:helper, filter:null})
         })
     }

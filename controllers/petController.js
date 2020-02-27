@@ -158,8 +158,23 @@ class Controller {
                 id: req.params.petId
             }
         })
-        .then(result => res.render('interestedBy.ejs', {data:result[0]}))
+        .then(result => res.render('interestedBy.ejs', {data:result[0], petId:req.params.petId}))
         .catch(err => res.send(err))
+    }
+
+    static changeOwner(req, res){
+        Pet.update(
+            {
+                owner_id: req.params.newId,
+                status: 'unavailable'
+            },
+            {
+                where: {
+                    id: req.params.petId
+                }
+            }
+        )
+        .then(result => res.redirect('/pets'))
     }
 }
 

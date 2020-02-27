@@ -24,4 +24,6 @@ router.get('/interested/:petId', Controller.addInterested)
 
 router.get('/:petId/interestedby', Controller.showInterested)
 
+router.get('/:petId/changeOwner/:newId', Controller.changeOwner)
+
 module.exports = router;

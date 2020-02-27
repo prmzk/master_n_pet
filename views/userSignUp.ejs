@@ -10,8 +10,12 @@
 <body>
     <%- include('./includes/navbar.ejs') %> <br>
     <h1>Master and Pet</h1> <br>
-    <h3>User login:</h3>
+    <h3>User Sign Up:</h3>
     <form action="/user/login" method="POST">
+        <label for="first_name">First Name :</label><br>
+        <input type="text" id="first_name" name="first_name"><br>
+        <label for="last_name">Last Name :</label><br>
+        <input type="text" id="last_name" name="first_name"><br>
         <label for="username">Username :</label><br>
         <input type="text" id="username" name="username"><br>
         <label for="password">Password :</label><br>

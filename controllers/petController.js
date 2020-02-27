@@ -3,7 +3,7 @@
 const { Pet, User, UserPet } = require('../models/index')
 
 class Controller {
-    static show(req, res){
+    static showAdmin(req, res){
         Pet.findAll({
             include:{
                 model: User,
@@ -22,15 +22,40 @@ class Controller {
         })
     }
 
+    static show(req, res){
+        Pet.findAll({
+            include:{
+                model: User,
+                as: 'Owner'
+            },
+            attributes: {
+                exclude: ['updatedAt', 'createdAt']
+            },
+            order: ['id']
+        })
+        .then(result => {
+            let success = req.app.locals.success
+            delete req.app.locals.success
+            res.render('petsUser.ejs', {data:result, user:req.session.user})
+        })
+    }
+
     static showAdd(req, res){
         User.findAll({
             order:['id']
         })
-        .then(result => res.render('addPet.ejs', {error: req.session.error, owner:result}))
+        .then(result => {
+            if(req.session.admin){
+                res.render('addPet.ejs', {error: req.session.error, owner:result})
+            }else{
+                res.render('addPetUser.ejs', {error: req.session.error})
+            }
+        })
         .catch(err => res.render(err))
     }
 
     static add(req, res){
+        if(!req.session.admin) req.body['owner_id'] = req.session.user.id
         Pet.create(req.body)
         .then(result => {
             req.app.locals.success = 'Pet added.'
@@ -107,7 +132,7 @@ class Controller {
                 as: 'Interested By'
             }],
             attributes: {
-                exclude: ['createdAt', 'updatedAt', 'owner_id']
+                exclude: ['createdAt', 'updatedAt']
             }
         })
         .then(result => {
@@ -116,8 +141,6 @@ class Controller {
     }
 
     static addInterested(req, res){
-        console.log(req.session.user.id)
-        console.log(req.params.petId)
         UserPet.create({
             user_id: req.session.user.id,
             pet_id: req.params.petId

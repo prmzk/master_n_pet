@@ -3,7 +3,13 @@
 const router = require('express').Router()
 const Controller = require('../controllers/petController')
 
-router.get('/', Controller.show)
+router.get('/', (req, res, next) => {
+   if(!req.session.admin){
+       Controller.show(req, res)
+   }else{
+       next()
+   }
+}, Controller.showAdmin)
 
 router.get('/add', Controller.showAdd)
 router.post('/add', Controller.add)

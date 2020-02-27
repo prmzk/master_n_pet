@@ -46,8 +46,9 @@
             <% } %>
         <tr>
       </table>
-      <% if(user){ %>
+      <% if(user){
+          if(!(user.id == data.dataValues.owner_id)) { %>
         <a href= <%= '/pets/interested/' + data.dataValues.id %>>I'm interested</a>
-      <% } %>
+      <% } }%>
       </body>
 </html>

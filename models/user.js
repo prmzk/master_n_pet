@@ -2,7 +2,11 @@
 const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends sequelize.Sequelize.Model{}
+  class User extends sequelize.Sequelize.Model{
+    get name(){
+      return `${this.first_name} ${this.last_name}`
+    }
+  }
   User.init({
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
@@ -30,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.associate = function(models) {
     // associations can be defined here
-    User.belongsToMany(models.Pet, {through: models.UserPet, foreignKey: "user_id"})
+    User.hasMany(models.Pet, {foreignKey:'owner_id'})
   };
   return User;
 };

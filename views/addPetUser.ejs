@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/pets/add" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="species">Species:</label><br>
+        <select id="species", name="species">
+            <option value="Cat">Cat</option>
+            <option value="Dog">Dog</option>
+            <option value="Bunny">Bunny</option>
+            <option value="Hamster">Hamster</option>
+            <option value="Fish">Fish</option>
+            <option value="Other">Other..</option>
+        </select><br>
+        <label for="breed">Breed:</label><br>
+        <input type="text" id="breed" name="breed"><br>
+        <label for="age">Age:</label><br>
+        <input type="text" id="age" name="age"><br>
+        <label for="status">Status:</label><br>
+        <select id="status", name="status">
+            <option value="for breeding">for breeding</option>
+            <option value="for adopting">for adopting</option>
+            <option value="unavailable">unavailable</option>
+        </select><br>
+        <input type="submit" value="Submit">
+      </form> 
+      <% if(error) { 
+        error.errors.forEach( el => { %>
+      <p style="color: red;"><%= el.message %></p>
+    <% }) 
+  } %>
+</body>
+</html>

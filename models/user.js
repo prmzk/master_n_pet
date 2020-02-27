@@ -41,7 +41,9 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Pet, {
       through: models.UserPet,
       foreignKey: 'user_id',
-      as: 'Interested To'
+      as: 'Interested To',
+      onDelete: 'cascade',
+      hooks: true
     })
   };
   return User;

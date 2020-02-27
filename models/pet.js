@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   class Pet extends sequelize.Sequelize.Model{}
   Pet.init({
@@ -53,7 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     Pet.belongsToMany(models.User, {
       through: models.UserPet,
       foreignKey: 'pet_id',
-      as: 'Interested By'
+      as: 'Interested By',
+      hooks: true, 
+      onDelete: 'cascade'
     })
   };
   return Pet;

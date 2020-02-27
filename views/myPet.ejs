@@ -5,31 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/style-home.css">
 </head>
 <body>
     <%- include('./includes/navbar.ejs') %> 
-    <br>
-        <% data.forEach( el => { %>
-            <div id ="pet-card" class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                <div class="card-header"><%= el.species %></div>
-                <div class="card-body">
-                  <h5 class="card-title"><%= el.name %></h5>
-                  <p class="card-text">Age: <%= el.age %></p>
-                  <p class="card-text">Avalailable <%= el.status %></p><br>
-                  <p class="card-text">* Owned by <% if(!el.Owner) { %>
-                      <%= 'Animal Shelter' %> <%} else { %>
-                      <%= el.Owner.name %>
-                    <% } %></p>
-                    <p class="card-text"><a href= <%= `pets/profile/${el.id}` %>>See Profile</a></p>
-                    <p class="card-text"><a href=<%= `/pets/${el.id}/interestedby` %>>See Who's Interested</a></p>
-                </div>
-              </div>
-        <% }) %>
-        <%- include('./includes/bsjs.ejs') %>
-        <br>
-        <br>
-    <table>
+    <a href="/pets/add"><button type="button" class="btn btn-primary" >Add a Pet</button></a>
+    <div style="display: flex; justify-content: center;">
+    <table class='table' style="width: 75%;">
         <tr>
           <th>Name</th>
           <th>Species</th>
@@ -38,6 +19,7 @@
           <th>Status</th>
           <th>See Profile</th>
           <th>Interested by?</th>
+          <th>Edit</th>
         </tr>
         <% data.forEach( el => { %>
             <tr>
@@ -53,9 +35,11 @@
             } %>
             <td><a href=<%= "/pets/profile/" + el.id %>>>></a></td>
             <td><a href=<%= `/pets/${el.id}/interestedby` %>>>></a></td>
+            <td><a href=<%= "/pets/edit/user/" + el.id %>>Edit</a></td>
             </tr>
         <% }) %>
       </table>
+    </div>
 
       <%- include('./includes/bsjs.ejs') %>
 </body>

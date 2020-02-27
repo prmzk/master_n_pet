@@ -5,5 +5,6 @@ const Controller = require('../controllers/adminController')
 
 router.get('/login', Controller.loginShow)
 router.post('/login', Controller.login)
+router.get('/logout', Controller.logOut)
 
 module.exports = router;

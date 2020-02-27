@@ -25,5 +25,12 @@ router.get('/interested/:petId', Controller.addInterested)
 router.get('/:petId/interestedby', Controller.showInterested)
 
 router.get('/:petId/changeOwner/:newId', Controller.changeOwner)
+router.get('/breeding', Controller.showBreeding)
+router.get('/adopting', Controller.showAdopting)
+
+router.get('/edit/user/:id', Controller.showEditUser)
+router.post('/edit/user/:id', Controller.editUser)
+
+
 
 module.exports = router;

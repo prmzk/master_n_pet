@@ -24,5 +24,8 @@
     "express-session": "^1.17.0",
     "pg": "^7.18.2",
     "sequelize": "^5.21.5"
+  },
+  "engines": {
+    "node": "v12.14.1"
   }
 }

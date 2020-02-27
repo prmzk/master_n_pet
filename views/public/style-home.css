@@ -2,8 +2,8 @@
 
 body {
     text-align: center;
-    background-color: #91a7ff;
-    color: white;
+    background-color: white;
+    color: grey;
     font-family: 'Lato', sans-serif;
 }
 h1{
@@ -47,4 +47,8 @@ td{
 
 .subtitle-profile {
     font-weight: bold;
+}
+
+.home-text {
+    color: #153a33
 }

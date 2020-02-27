@@ -10,7 +10,6 @@
 <body>
     <%- include('./includes/navbar.ejs') %> 
     <br>
-    <% if(reqsession.admin) { %>
         <a href="/pets/add">Add</a>
         <% if(success){ %>
             <p style="color: green;"><%= success %></p>
@@ -44,20 +43,6 @@
             </tr>
         <% }) %>
       </table>
-    <% } else if(reqsession.user) { %>
-        <% data.forEach( el => { %>
-            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                <div class="card-header"><%= el.species %></div>
-                <div class="card-body">
-                  <h5 class="card-title"><%= el.name %></h5>
-                  <p class="card-text">Age: <%= el.age %></p>
-                  <p class="card-text">Avalailable <%= el.status %></p><br>
-                  <p class="card-text">* Owned by <%= el.Owner %></p>
-
-                </div>
-              </div>
-        <% }) %>
-    <% } %>
     <%- include('./includes/bsjs.ejs') %>
 </body>
 </html>

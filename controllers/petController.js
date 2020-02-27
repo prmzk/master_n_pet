@@ -18,7 +18,7 @@ class Controller {
             let success = req.app.locals.success
             delete req.app.locals.success
             console.log(result)
-            res.render('pets.ejs', {success:success, data:result, reqsession: req.session})
+            res.render('pets.ejs', {success:success, data:result})
         })
     }
 

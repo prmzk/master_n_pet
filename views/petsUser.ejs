@@ -4,36 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style-home.css">
 </head>
 <body>
-    <% if(user){ %>
-        <a href="/pets/add">Add</a>
-    <% } %>
-    <table>
-        <tr>
-          <th>Name</th>
-          <th>Species</th>
-          <th>Breed</th>
-          <th>Age</th>
-          <th>Status</th>
-          <th>Owner</th>
-          <th>See Profile</th>
-        </tr>
+    <%- include('./includes/navbar.ejs') %> 
+    <br>
         <% data.forEach( el => { %>
-            <tr>
-            <% for(let key in el.dataValues){ 
-                if(key !== 'id' && key!== 'Owner' && key!== 'owner_id') { %>
-                <td><%= el[key] %></td>
-                <% } else if(key == 'Owner') { 
-                    if(el[key] == null) {%>
-                <td>Animal Shelter</td>
-                <% } else { %>
-                <td><%= el[key].name %></td>
-            <% }}
-            } %>
-            <td><a href=<%= "/pets/profile/" + el.id %>>>></a></td>
-            </tr>
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header"><%= el.species %></div>
+                <div class="card-body">
+                  <h5 class="card-title"><%= el.name %></h5>
+                  <p class="card-text">Age: <%= el.age %></p>
+                  <p class="card-text">Avalailable <%= el.status %></p><br>
+                  <p class="card-text">* Owned by <% if(!el.Owner) { %>
+                      <%= 'Animal Shelter' %> <%} else { %>
+                      <%= el.Owner.name %>
+                    <% } %></p>
+                    <p class="card-text"><a href= <%= `pets/profile/${el.id}` %>>See Profile</a></p>
+                </div>
+              </div>
         <% }) %>
-      </table>
+        <%- include('./includes/bsjs.ejs') %>
 </body>
 </html>

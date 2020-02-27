@@ -9,7 +9,7 @@
     <%- include('./includes/navbar.ejs') %> 
     <br>
     <h1>Master and Pet</h1> <br>
-    <% if(!user) { %>
+    <% if(!user && !admin) { %>
     <!-- <h3><a href = '/admin/login'>Login Admin</a></h3> <br> -->
     <h3><a href = '/user/signup'>Register User</a></h3> <br>
     <h3><a href = '/user/login'>Login User</a></h3> <br>
@@ -19,6 +19,8 @@
     <h4>Welcome back, Master <%= user.first_name %> </h4>
     <br>
     <h5><a href = "/user/logout">Logout</a></h5>
+    <% } else if(admin) { %>
+        <h2>Welcome admin!</h2>
     <% } %>
     <%- include('./includes/bsjs.ejs') %>
 </body>

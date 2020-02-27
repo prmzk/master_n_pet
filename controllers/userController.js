@@ -47,7 +47,10 @@ class Controller {
             .catch(errors => res.send(errors))
             
     }
-    static 
+    static logOut(req, res) {
+        req.session.destroy()
+        res.redirect('/')
+    }
 }
 
 module.exports = Controller;

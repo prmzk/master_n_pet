@@ -38,7 +38,10 @@
           <a href= <%= '/pets/interested/' + data.dataValues.id %>> * I'm interested</a>
                 <% } else { %>
                     <p style="color: red;">Sorry it's unavailable :(</p>
-        <% }} }%>
+        <% }} }
+        else { %>
+            <p style="color: red;">Login to adopt!</p>
+            <% } %>
 
       </div>
 

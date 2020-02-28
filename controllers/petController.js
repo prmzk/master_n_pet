@@ -181,7 +181,7 @@ class Controller {
             user_id: req.session.user.id,
             pet_id: req.params.petId
         })
-        .then(result => res.redirect('/pets'))
+        .then(result => res.redirect(`/pets/profile/${req.params.petId}`))
         .catch(err => res.send(err))
     }
 

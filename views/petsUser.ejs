@@ -10,7 +10,7 @@
 </head>
 <body>
     <%- include('./includes/navbar.ejs') %> 
-    <h1 class="display-2" style="color: rgb(14, 133, 68);">Pets nearby</h1>
+    <h1 id="cool-font" class="display-2" style="color: rgb(14, 133, 68);">Pets nearby</h1>
     <p style="color: rgb(14, 133, 68); font-size: 20px;">Find pets to adopt right now!</p>
     <a href="/pets/breeding"><button type="button" class="btn btn-info" <%= (filter == 1) ? 'disabled':'' %>>For Breeding</button></a>
     <a href="/pets/adopting"><button type="button" class="btn btn-info" <%= (filter == 2) ? 'disabled':'' %>>For Adopting</button></a>

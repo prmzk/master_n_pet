@@ -39,6 +39,7 @@ class Controller {
                             throw new Error('Password salah!')
                         }
                     })
+                    .catch(errors => res.render('loginUser', {errors: errors}))
                 }
                 else {
                     throw new Error('Username salah!')

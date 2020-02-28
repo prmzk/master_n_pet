@@ -18,6 +18,9 @@
         <input type="password" id="password" name="password"><br><br>
         <input type="submit" value="Submit">
       </form> 
+      <% if(errors) { %>
+        <p style="color: red;"><%= errors.message %></p>
+        <% } %>
       <%- include('./includes/bsjs.ejs') %>
 </body>
 </html>
